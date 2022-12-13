@@ -1,18 +1,36 @@
-import React, { useEffect } from 'react';
-import { ImageBackground, Text, View, SafeAreaView, StyleSheet } from 'react-native';
-import axios from "axios";
+import React, {useEffect} from 'react';
+import {
+  ImageBackground,
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
+import axios from 'axios';
 
 const App = ({}) => {
+
   useEffect(() => {
-    console.log('hello')
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'refId': 'ali' })
+    };
+    fetch('http://localhost:8080/api/references', requestOptions)
+      .then(response => response.json())
+      .then(data => setPostId(data.id));
+
+
+
+
+
   });
   return (
     <ImageBackground
       style={s.background}
       source={require('./src/assets/images/background.png')}
-    >
-    
-    </ImageBackground>
+    />
   );
 };
 
@@ -45,14 +63,14 @@ const s = StyleSheet.create({
     flex: 1,
   },
   controls: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   button: {
-    flex: 1
+    flex: 1,
   },
   gap: {
-    width: 25
-  }
+    width: 25,
+  },
 });
 
 export default App;
